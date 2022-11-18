@@ -8,8 +8,9 @@ passport.use(new LocalStrategy(async(username,password,done)=>{
 console.log(user)
 if(!user)return done (null,false)
 
-const newPass = bcrypt.compare(password, user.password) 
-    if(!newPass)return done(null, false)
+const newPass =await bcrypt.compare( password , user.password) 
+console.log(newPass);
+    if(newPass !== true)return done(null, false)
 
 return done(null,user)
  }
@@ -38,4 +39,10 @@ passport.deserializeUser(async(id,done)=>{
 })
 
 
+}
+
+exports.isAuthenticated =(req,res,next)=>{
+    if(req.user) return next;
+
+    res.redirect("/login")
 }

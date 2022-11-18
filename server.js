@@ -7,7 +7,7 @@ let ejs = require('ejs');
 const LocalStrategy = require('passport-local').Strategy
 const PORT = 9000;
 const userModel = require('./user');
-const {initializingPassport} = require('./passportconfig.js')
+const {initializingPassport,isAuthenticated} = require('./passportconfig.js')
 
 let app = express()
 app.set("view engine", "ejs");
@@ -46,6 +46,11 @@ res.send("done")
 app.get('/register',(req,res)=>{
 res.render('register.ejs')
 })
+app.get('/logout',(req,res)=>{
+    req.logout()
+    res.render('logged out')
+    })
+
 
 app.get('/login',(req,res)=>{
     res.render('login.ejs')
@@ -55,6 +60,10 @@ app.get('/login',(req,res)=>{
     function(req, res) {
       res.send('done');
     });
+    app.get("/profile",isAuthenticated,(req,res)=>{
+        console.log(req.user)
+        res.send(req.user)
+    })
 
 app.post('/register',async(req,res)=>{
     try {
@@ -73,6 +82,8 @@ app.post('/register',async(req,res)=>{
    
 
 })
+
+
 
 app.listen(PORT,(req,res)=>{
     console.log(`app listening on port:${PORT}`);
