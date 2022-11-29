@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    
+    <nav class="nav-bar">
+    <%  if(!currentUser){ %>
+      <a href='/catalog'><h3 style="margin-left: 5px;"> PASTA MEMBER</h3></a>
+      <a href='/catalog/sign-up' class="nav-2"><h4>Sign-Up</h4></a>
+      <a href='/catalog/login' class="nav-3"><h4>Login</h4></a>
+    <%  }else{ %>
+        <a href='/catalog'><h3 style="margin-left: 5px;">PASTA MEMBER CLUB </h3></a>
+        <a href='/catalog/admin' class="lnav-2"><h4>Become Admin</h4></a>
+        <a href='/catalog/create_post' class="lnav-3"><h4>Create Post</h4></a>
+        <a href='/catalog/logout' class="lnav-4"><h4>Logout</h4></a>
+     <% } %>
+
+    </nav>
+    
+    
+  </body>
+</html>
